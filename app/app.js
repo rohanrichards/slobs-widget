@@ -1,13 +1,16 @@
 import { userSettings as UserSettings } from './modules/user-settings.js'
 import { streamlabs as Streamlabs } from './modules/streamlabs.js'
+import { views as Views } from './modules/views.js'
 
 export default class App {
 	constructor() {
+		Views.updateStatus('Loading Streamlabs SDK...')
 		Streamlabs.ready()
 			.then(streamlabs => {
-				console.log(streamlabs)
-				console.log("app initialized")
+				Views.updateStatus('Streamlabs Ready')
 			})
+
+		Views.updateUserName('...')
 
 		this.loadProfiles()
 		this.getPlatform()
@@ -16,6 +19,7 @@ export default class App {
 
 	async loadProfiles() {
 		const profiles = await Streamlabs.profiles()
+		Views.updateUserName(profiles.streamlabs.name)
 		console.log(profiles)
 	}
 
@@ -25,7 +29,9 @@ export default class App {
 	}
 
 	async getUserSettings() {
+		Views.updateStatus('Loading User Settings...')
 		const settings = await UserSettings.settings()
+		Views.updateStatus('User Settings Loaded')
 		console.log(settings)
 	}
 }
