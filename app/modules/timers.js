@@ -10,8 +10,9 @@ class Timers {
 		return timer(time)
 	}
 
-	periodic(time) {
-		return timer(time, time)
+	periodic(period, start?) {
+		start = start ? start : period
+		return timer(start, period)
 	}
 }
 

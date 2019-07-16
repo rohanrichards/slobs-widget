@@ -5,12 +5,12 @@ import { views as Views } from './modules/views.js'
 export default class App {
 	constructor() {
 		Views.updateStatus('Loading Streamlabs SDK...')
+		Views.updateUserName('...')
+
 		Streamlabs.ready()
 			.then(streamlabs => {
 				Views.updateStatus('Streamlabs Ready')
 			})
-
-		Views.updateUserName('...')
 
 		this.loadProfiles()
 		this.getPlatform()
